@@ -18,6 +18,17 @@ GET "/calculacte"
     <img src="src/main/resources/Images/img.png" alt="Пример стратегии" />
 </details>
 
+### Логика расчета
+Для расчета отпускных по количеству отпускных дней используется формула:
+```
+отпускные = (средняя зарплата / 29.3) * количество дней
+```
+Для расчета отпускных по конкретным датам используется формула:
+```
+отпускные = (средняя зарплата / 29.3) * оплачиваемые даты
+```
+Где 29.3 - среднее количество дней в месяце
+
 > [!IMPORTANT]
 > Реализация интерфейса `HolidayStrategy`:
 
@@ -47,6 +58,13 @@ public interface HolidayStrategy {
 >  [__Реализация класса расчета отпускных с учетом праздничных и выходных дней__](src/main/java/ru/neoflex/HolidayCalculator/service/DatesStrategy.java) `DatesStrategy`<br>
 >  [__Реализация класса-навигатора__](src/main/java/ru/neoflex/HolidayCalculator/service/HolidayService.java) `Класс-навигатор`
 
+### Пример запросов
+```cmd
+GET /calculate?averageSalary=58000&vacationDays=14
+```
+```cmd
+GET /calculate?averageSalary=58000&vacationDates=2025-01-01,2025-01-02,2025-01-03
+```
 ## Unit-тесты
 
 Тест на правильный подсчет суммы в случае, когда указано количество дней
