@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Калькулятор отпускных</title>
+    <style>
+        :root {
+          --main-color: #2b6cb0;
+          --accent-color: #63b3ed;
+          --bg-color: #f0f4f8;
+          --input-bg: #ffffff;
+          --success-bg: #e6fffa;
+          --success-border: #38b2ac;
+        }
+
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: var(--bg-color);
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          min-height: 100vh;
+        }
+
+        .container {
+          background: #fff;
+          margin-top: 60px;
+          padding: 35px;
+          border-radius: 14px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+          width: 100%;
+          max-width: 520px;
+          border-top: 6px solid var(--main-color);
+        }
+
+        h1 {
+          text-align: center;
+          color: var(--main-color);
+          font-size: 28px;
+        }
+
+        label {
+          display: block;
+          margin-top: 20px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+          width: 100%;
+          padding: 10px 12px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          background-color: var(--input-bg);
+          box-sizing: border-box;
+          font-size: 16px;
+        }
+
+        button {
+          margin-top: 25px;
+          width: 100%;
+          padding: 12px;
+          background-color: var(--main-color);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+          background-color: #1a4d8f;
+        }
+
+        .result {
+          margin-top: 30px;
+          padding: 20px;
+          background-color: var(--success-bg);
+          border: 1px solid var(--success-border);
+          border-radius: 10px;
+          color: #234e52;
+        }
+
+        .result p {
+          margin: 8px 0;
+          font-size: 16px;
+        }
+
+        .footer {
+          text-align: center;
+          margin-top: 40px;
+          font-size: 13px;
+          color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Калькулятор отпускных</h1>
+    <form id="vacationForm">
+        <label for="salary">Средняя зарплата за 12 месяцев (₽)</label>
+        <input type="number" id="salary" name="averageSalary" required />
+
+        <label for="days">Количество дней отпуска (необязательно)</label>
+        <input type="number" id="days" name="vacationDays" />
+
+        <label for="dates">Конкретные даты отпуска (через запятую, ГГГГ-ММ-ДД)</label>
+        <input type="text" id="dates" name="vacationDates" placeholder="2025-06-01,2025-06-02" />
+
+        <button type="submit">Рассчитать</button>
+    </form>
+
+    <div class="result" id="result" style="display: none;">
+        <p><strong>Оплачиваемых дней:</strong> <span id="paidDays"></span></p>
+        <p><strong>Сумма отпускных:</strong> <span id="vacationPay"></span> ₽</p>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('vacationForm');
+    const resultBlock = document.getElementById('result');
+    const paidDaysEl = document.getElementById('paidDays');
+    const vacationPayEl = document.getElementById('vacationPay');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const salary = document.getElementById('salary').value;
+      const days = document.getElementById('days').value;
+      const dates = document.getElementById('dates').value;
+
+      let url = `/calculate?averageSalary=${encodeURIComponent(salary)}`;
+      if (days) url += `&vacationDays=${encodeURIComponent(days)}`;
+      if (dates) url += `&vacationDates=${encodeURIComponent(dates)}`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        paidDaysEl.textContent = data.paidDays ?? '-';
+        paidDaysEl.textContent = data.paidDays ?? '-';
+
+
+        vacationPayEl.textContent = data.vacationPay?.toFixed(2) ?? '0.00';
+        resultBlock.style.display = 'block';
+      } catch (err) {
+        alert('Ошибка при расчёте. Проверьте введённые данные.');
+      }
+    });
+</script>
+</body>
+</html>
