@@ -6,6 +6,12 @@ import ru.neoflex.HolidayCalculator.service.HolidayService;
 
 import java.util.List;
 
+/**
+ // * Контроллер расчета отпускных
+ *
+ * @version 1.0
+ * @author Artemova Olga
+ */
 @RestController
 @RequestMapping("/calculate")
 public class HolidayController {
@@ -13,7 +19,12 @@ public class HolidayController {
     public HolidayController(HolidayService service) {
         this.service = service;
     }
-
+    /**
+     @param averageSalary средняя зарплата
+     @param vacationDays количество дней отпуска
+     @param vacationDates точные дни отпуска
+     @return данные об отпускных
+     **/
     @GetMapping
     public ResponseEntity<HolidayData> calculateVacation(
             @RequestParam double averageSalary,
