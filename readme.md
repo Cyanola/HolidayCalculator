@@ -15,7 +15,7 @@ GET "/calculacte"
         <b>Паттерн "Стратегия"</b> — это поведенческий паттерн проектирования, который определяет семейство схожих алгоритмов и помещает каждый из них в собственный класс, после чего алгоритмы можно взаимозаменять прямо во время исполнения программы.
      </p>
 <hr/>
-    <img src="HolidayCalculator/src/main/resources/Images/img.png" alt="Пример стратегии" />
+    <img src="src/main/resources/Images/img.png" alt="Пример стратегии" />
 </details>
 
 > [!IMPORTANT]
@@ -42,10 +42,10 @@ public interface HolidayStrategy {
 ]
 
 ```
-> [__Содержимое класса контроллера__](HolidayCalculator/src/main/java/ru/neoflex/HolidayCalculator/controller/HolidayController.java) `HolidayController`<br>
-> [__Реализация класса стандартного расчета отпускных__](HolidayCalculator/src/main/java/ru/neoflex/HolidayCalculator/service/CountDaysStrategy.java) `CountDaysStrategy`<br>
->  [__Реализация класса расчета отпускных с учетом праздничных и выходных дней__](HolidayCalculator/src/main/java/ru/neoflex/HolidayCalculator/service/DatesStrategy.java) `DatesStrategy`<br>
->  [__Реализация класса-навигатора__](HolidayCalculator/src/main/java/ru/neoflex/HolidayCalculator/service/HolidayService.java) `Класс-навигатор`
+> [__Содержимое класса контроллера__](src/main/java/ru/neoflex/HolidayCalculator/controller/HolidayController.java) `HolidayController`<br>
+> [__Реализация класса стандартного расчета отпускных__](src/main/java/ru/neoflex/HolidayCalculator/service/CountDaysStrategy.java) `CountDaysStrategy`<br>
+>  [__Реализация класса расчета отпускных с учетом праздничных и выходных дней__](src/main/java/ru/neoflex/HolidayCalculator/service/DatesStrategy.java) `DatesStrategy`<br>
+>  [__Реализация класса-навигатора__](src/main/java/ru/neoflex/HolidayCalculator/service/HolidayService.java) `Класс-навигатор`
 
 ## Unit-тесты
 
